@@ -1,0 +1,25 @@
+Task List 
+P2 T2:
+	1. Admin is able to create a new course section
+	And appoint an instructor to it
+	
+	Restrictions: 
+two sections per time slot (4 in phase 1)
+			Instructor teaches one or two sections per semester
+		If instructor teaches two sections in a semester, the timeslots must be consecutive
+
+P2 T6: 
+	1.Admin can assign a TA to a section with more than 10 students
+		Restriction: TA must be a PhD student, and that student can only be the TA for one section
+
+P2 T7:
+Admin can assign MS students or undergraduate students to be graders
+Restrictions:
+section has 5 to 10 students
+student must have A- or A
+admin only chooses 1 grader
+student can only be a grader for 1 section
+8. In admin or instructor, insert into advise table studentid, instructorid(s), start date, end date(optional)
+-advisor can get course history can update information of student
+Restrictions: one or two instructors can advise PhD student
+
