@@ -51,6 +51,9 @@ table, th, td {
 	while ($row = $query->fetch_assoc()) {
 		$letter_grade = $row['grade'];
 		switch($letter_grade) {
+			case 'A+':
+				$total_grade += 4.0;
+				break;
 			case 'A':
 				$total_grade += 4.0;
 				break;
