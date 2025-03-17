@@ -165,7 +165,7 @@
 <?php
 	if (isset($_POST['find_section']) && $_POST['find_section']) {
 		$chosen_course = $_POST["select_course"];
-		$section = "SELECT section_id FROM section, course WHERE section.course_id = course.course_id and course.course_id = '$chosen_course'";
+		$section = "SELECT section_id FROM section WHERE course_id = '$chosen_course' and year = '$current_year' and semester = '$current_semester'";
 		$choose_section = $mysqli->query($section);
 		echo "Chosen Course: $chosen_course";
 	}

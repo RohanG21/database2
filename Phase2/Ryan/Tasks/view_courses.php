@@ -89,6 +89,7 @@ table, th, td {
 				break;
 			default:
 				$total_grade += 0.0;
+				$num_rows -= 1;
 				break;
 		}
 	}

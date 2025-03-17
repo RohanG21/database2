@@ -255,7 +255,8 @@ insert into section (course_id, section_id, semester, year) value ('COMP2010', '
 insert into section (course_id, section_id, semester, year) value ('COMP2010', 'Section102', 'Fall', 2023);
 insert into section (course_id, section_id, semester, year) value ('COMP2040', 'Section201', 'Spring', 2024);
 
-
+insert into section (course_id, section_id, semester, year) value ('COMP1010', 'Section101', 'Spring', 2025);
+insert into section (course_id, section_id, semester, year) value ('MATH1310', 'Section101', 'Spring', 2025);
 
 
 INSERT INTO student VALUES(100,"Ben James","benjames@student.uml.edu",'Miner School of Computer & Information Sciences');
@@ -276,12 +277,46 @@ INSERT INTO student VALUES(113,'Oliver Danton','oliverdanton@student.uml.edu','M
 INSERT INTO student VALUES(114,'Priya Nagu','priyanagu@student.uml.edu','Solomont School Of Nursing');
 INSERT INTO student VALUES(115,'Andes Rofello','andesrofello@student.uml.edu','Miner School of Computer & Information Sciences');
 
+INSERT INTO student VALUES(116,'Isaac Shyam','isaacshyam@student.uml.edu','Miner School of Computer & Information Sciences');
+INSERT INTO student VALUES(117,'Barnaby Alex','barnabyalex@student.uml.edu','Miner School of Computer & Information Sciences');
+INSERT INTO student VALUES(118,'Manoj Huguo','manojhuguo@student.uml.edu','Miner School of Computer & Information Sciences');
+INSERT INTO student VALUES(119,'Thales Heru','thalesheru@student.uml.edu','Miner School of Computer & Information Sciences');
+INSERT INTO student VALUES(120,'Ruben Knight','rubenknight@student.uml.edu','Miner School of Computer & Information Sciences');
+INSERT INTO student VALUES(121,'Tyrone Conrad','tyroneconrad@student.uml.edu','Miner School of Computer & Information Sciences');
+INSERT INTO student VALUES(122,'Rod Shah','rodshah@student.uml.edu','Miner School of Computer & Information Sciences');
+INSERT INTO student VALUES(123,'Tisha Zavala','tishazavala@student.uml.edu','Miner School of Computer & Information Sciences');
+INSERT INTO student VALUES(124,'Harriet Farley','harrietfarley@student.uml.edu','Miner School of Computer & Information Sciences');
+INSERT INTO student VALUES(125,'Duncan Leon','duncanleon@student.uml.edu','Miner School of Computer & Information Sciences');
+INSERT INTO student VALUES(126,'Hubert Carrillo','hubertcarrillo@student.uml.edu','Miner School of Computer & Information Sciences');
 
-INSERT INTO phd VALUES('106',1,20230516,20250516);
-INSERT INTO phd VALUES('107',1,20220925,20260312);
-INSERT INTO phd VALUES('108',0,NULL,NULL);
-INSERT INTO phd VALUES('109',1,20200208,20250406);
-INSERT INTO phd VALUES('110',1,20241103,20280119);
+INSERT INTO student VALUES(127,'Roscoe Fry','roscoefry@student.uml.edu','Miner School of Computer & Information Sciences');
+
+
+INSERT INTO take values(116, 'COMP1010','Section101','Spring',2025, 'A+');
+INSERT INTO take values(117, 'COMP1010','Section101','Spring',2025, 'A');
+INSERT INTO take values(118, 'COMP1010','Section101','Spring',2025, 'A-');
+INSERT INTO take values(119, 'COMP1010','Section101','Spring',2025, 'A-');
+INSERT INTO take values(120, 'COMP1010','Section101','Spring',2025, 'B+');
+INSERT INTO take values(121, 'COMP1010','Section101','Spring',2025, 'B');
+INSERT INTO take values(122, 'COMP1010','Section101','Spring',2025, 'C+');
+INSERT INTO take values(123, 'COMP1010','Section101','Spring',2025, 'C');
+INSERT INTO take values(124, 'COMP1010','Section101','Spring',2025, 'D');
+INSERT INTO take values(125, 'COMP1010','Section101','Spring',2025, 'D-');
+INSERT INTO take values(126, 'COMP1010','Section101','Spring',2025, 'F');
+
+INSERT INTO take values(116, 'MATH1310', 'Section101', 'Spring', 2025, 'A');
+INSERT INTO take values(117, 'MATH1310', 'Section101', 'Spring', 2025, 'A-');
+INSERT INTO take values(118, 'MATH1310', 'Section101', 'Spring', 2025, 'A');
+INSERT INTO take values(119, 'MATH1310', 'Section101', 'Spring', 2025, 'B');
+INSERT INTO take values(120, 'MATH1310', 'Section101', 'Spring', 2025, 'C+');
+
+INSERT INTO phd VALUES(106,1,20230516,20250516);
+INSERT INTO phd VALUES(107,1,20220925,20260312);
+INSERT INTO phd VALUES(108,0,NULL,NULL);
+INSERT INTO phd VALUES(109,1,20200208,20250406);
+INSERT INTO phd VALUES(110,1,20241103,20280119);
+
+INSERT INTO phd VALUES(127,0,NULL,NULL);
 
 
 INSERT INTO advise VALUES(1,'106',20230516,20250516);
