@@ -95,6 +95,7 @@ table, th, td {
 	}
 	if ($num_rows != 0) {
 		$gpa = $total_grade / $num_rows;
+		$gpa = round($gpa, 3);
 		echo "Cumulative GPA: $gpa<br>";
 	} else {
 		echo "Student Hasn't Taken Any Courses";
