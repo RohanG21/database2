@@ -11,3 +11,8 @@ P2 T5:
 3. Instructors can see course sections they are teaching
 
 4. Instructors can see the student names and their grades in the sections mentioned in 3. 
+
+P2 T8:
+The X or instructor can appoint one or two instructors as advisor(s) for PhD
+students, including a start date, and optional end date. The advisor will be able to view
+the course history of their advisees, and update their advisees’ information.
