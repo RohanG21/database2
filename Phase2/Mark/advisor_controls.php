@@ -9,32 +9,16 @@
 	$ins_id = $_SESSION['ins_id'];
 	$chosen_phd = "";
 	
+	// Following lines ensures neccesary info on the selected student persists between form usage
 	if (isset($_POST['chosen_phd'])) {
-    $chosen_phd = $_POST['chosen_phd'];
+		$chosen_phd = $_POST['chosen_phd'];
 	} else if (isset($_POST['select_phd'])) {
-    $chosen_phd = $_POST['select_phd'];
+		$chosen_phd = $_POST['select_phd'];
 	}
 	if (isset($chosen_phd) && !empty($chosen_phd)) {
-    $phd_advisor = "SELECT instructor_id FROM advise WHERE student_id = '$chosen_phd' AND instructor_id = '$ins_id'"; 
-    $chosen_phd_advisor = $mysqli->query($phd_advisor);
-    echo "Chosen student's id: $chosen_phd";
-	} else {
-    // Initialize to avoid undefined variable
-    $chosen_phd_advisor = null;
-}
-/*
- The instructor can appoint instructors as advisor(s) for PhD students, up to 2 per student,
- including a start date, and optional end date. The advisor will be able to view
- the course history of their advisees, and update their advisee's information.
-
- each student_id in advise can have only 1 or 2 different instructor_ids
- instructor view will need to be split up by advisee/student
- "update advisee info" = qualifier, proposal defence date, dissertation date
-
- Advise: instructor_id, student_id, start_date, end_date(optional)
- INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES (2, 106, 2024-11-08, 2028-01-19
-*/
-
+		$phd_advisor = "SELECT instructor_id FROM advise WHERE student_id = '$chosen_phd' AND instructor_id = '$ins_id'"; 
+		$chosen_phd_advisor = $mysqli->query($phd_advisor); 
+	}
 ?>
 
 <!DOCTYPE html>
@@ -46,13 +30,13 @@
 <center>
 <h1> Advisor Controls </h1>
 
+<!--Display advisees of the currently logged on instructor-->
 <?php
 	echo "<h2>Current Advisees</h2>";
 	$advisee_query = "SELECT S.student_id, S.name FROM student S, advise A WHERE S.student_id = A.student_id AND 
 		A.instructor_id = $ins_id";
 	$advisee_result = $mysqli->query($advisee_query);
 	if ($advisee_result->num_rows > 0) {
-			//echo "<p>Current advisee names and IDs:</p>";
 			echo "<table border = '1' cellpadding = '4' cellspacing = '0'>";
 			echo	"<tr><th>Student name</th>
 					<th>Student ID</th>
@@ -73,7 +57,6 @@
 
 ?>
 <br>
-
 
 <!--Pick a PhD student to enable the functionality in the rest of the page-->
 <h2>PhD Student Selection</h2>
@@ -106,12 +89,11 @@
 	
 <!--View selected PhD's course history -->
 <?php
-	echo "<h2>Advisee course history</h2>";
+	echo "<h2>Advisee Course History</h2>";
 	if ($chosen_phd) {
 		$ch_query = "SELECT * FROM take WHERE student_id = $chosen_phd ORDER BY year";
 		$ch_result = $mysqli->query($ch_query);
 		if (($ch_result->num_rows > 0) && ($chosen_phd_advisor->num_rows > 0)) {
-			//echo "<h2>Advisee course history</h2>";
 			$ch_query = "SELECT * FROM take WHERE student_id = $chosen_phd ORDER BY year";
 			$ch_result = $mysqli->query($ch_query);
 			echo "<table border = '1' cellpadding = '4' cellspacing = '0'>";
@@ -154,7 +136,7 @@
 
 <!--Add advisors to selected PhD if number of current advisors < 2 -->
 <?php
-	echo "<h2>Appoint instructors</h2>";
+	echo "<h2>Appoint Instructors</h2>";
 	if($chosen_phd) {
 
 		$adv_cnt_query = "SELECT * FROM advise WHERE student_id = $chosen_phd";
@@ -178,12 +160,12 @@
 			<br><br>
 			<input type="hidden" name="chosen_phd" value="<?php echo $chosen_phd;?>">
 			<div>
-				<label for="start_date">Enter advising start date YYYY-MM-DD:</label>
+				<label for="start_date">Enter advising start date YYYY-MM-DD (include dashes):</label>
 				<input type="text" id="start_date" name="start_date" maxlength="10" required>
 			</div>
 			<br>
 			<div>
-				<label for="end_date">Optional: enter advising end date YYYY-MM-DD:</label>
+				<label for="end_date">Optional: enter advising end date YYYY-MM-DD (include dashes):</label>
 				<input type="text" id="end_date" name="end_date" maxlength="10">
 			</div>
 			<br>
@@ -203,12 +185,9 @@
 				else {
 					$end_date = $_POST["end_date"];
 					$new_advisor = "INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES ('$chosen_ins', '$chosen_phd', '$start_date', '$end_date')";
-					//INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES (3, 106, '20230516', '20250516'); works when entered directly
-					//INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES (3, 106, 20230516, 20250516); also works
-					//INSERT INTO advise (instructor_id, student_id, start_date, end_date) VALUES (3, 106, '2023-05-16', '2025-05-16'); also works
 					$mysqli->query($new_advisor);
 				}
-				echo "<p>New entry added to the advise table.</p>";
+				echo "<p>New entry added to the advise table. If added as your advisee, re-select to see related options.</p>";
 				
 			}
 
@@ -220,6 +199,7 @@
 	}
 ?>
 <br>
+
 
 <!--Change qualifier, proposal defence date, dissertation date values of the PhD table -->
 <h2>Update Advisee Information</h2>
@@ -250,34 +230,60 @@
 			}
 			echo "</table>"; ?>
 			<br>
+			<p>Leave blank/unselected any fields you do not wish to change.</p>
 			<form action = "" method ="POST">
 			<input type="hidden" name="chosen_phd" value="<?php echo $chosen_phd;?>">
 			<div>
 				<label for="new_qual">Select pass or fail for the qualifying exam:</label>
-				<select name=>
-				<input type="text" id="new_qual" name="new_qual" maxlength="10">
+				<select name="new_qual" id="new_qual">
+					<option disabled selected value> Please select an option</option>
+					<option value = "Pass">Pass</option>
+					<option value = "Fail">Fail</option>
+				</select>
 			</div>
 			<br>
 			<div>
-				<label for="new_def">Enter new defence date YYYY-MM-DD:</label>
+				<label for="new_def">Enter new defence date YYYY-MM-DD (include dashes):</label>
 				<input type="text" id="new_def" name="new_def" maxlength="10">
 			</div>
 			<br>
 			<div>
-				<label for="new_diss">Enter new dissertation date YYYY-MM-DD:</label>
+				<label for="new_diss">Enter new dissertation date YYYY-MM-DD (include dashes):</label>
 				<input type="text" id="new_diss" name="new_diss" maxlength="10">
 			</div>
 			<br>
 			<div>
-				<input type="submit" name="new_advisor_button" value="Submit" required>
+				<input type="submit" name="new_phd_info_button" value="Submit" required>
 			</div>
 			</form>
 			<?php
-			
-			
-			
-			
-		
+			if (isset($_POST['new_phd_info_button']) && $_POST['new_phd_info_button']) {
+				$chosen_phd = $_POST["chosen_phd"];
+				if (!empty($_POST["new_qual"])) {$new_qual = $_POST["new_qual"];} // avoids a warning when empty
+				$new_def_start_date = $_POST["new_def"];
+				$new_diss_start_date = $_POST["new_diss"];
+				$update_confirm = False;
+				if (!empty($_POST["new_qual"])) {
+					$new_qual_query = "UPDATE PhD SET qualifier = '$new_qual' WHERE student_id = '$chosen_phd'";
+					$mysqli->query($new_qual_query);
+					$update_confirm = True;
+				}
+				if (!empty($_POST["new_def"])) {
+					$new_def_query = "UPDATE PhD SET proposal_defence_date = '$new_def_start_date' WHERE student_id = '$chosen_phd'";
+					$mysqli->query($new_def_query);
+					$update_confirm = True;
+				}
+				if (!empty($_POST["new_diss"])) {
+					$new_diss_query = "UPDATE PhD SET dissertation_defence_date = '$new_diss_start_date' WHERE student_id = '$chosen_phd'";
+					$mysqli->query($new_diss_query);
+					$update_confirm = True;
+				}
+				if ($update_confirm == False) {
+					echo "No changes made.";
+				} else {
+					echo "Changes to PhD confirmed. Reselect student at top of page to display changes.";
+				}
+			}
 		} else if (($phd_info_result->num_rows == 1) && ($chosen_phd_advisor->num_rows == 0)) {
 			echo "You are not currently authorized to alter this student's information.";
 		} else if (($phd_info_result->num_rows == 0) && ($chosen_phd_advisor->num_rows == 0)) {
