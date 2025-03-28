@@ -34,8 +34,6 @@
 						<th>Year</th>
 						<th>Instructor ID</th>
 						</tr>";
-						//<th>Classroom ID</th>
-						//<th>Timeslot ID</th>";
 	
 			while($row = $result->fetch_assoc()) {
 				$course_id = $row['course_id'];
@@ -43,16 +41,12 @@
 				$semester = $row['semester'];
 				$year = $row['year'];
 				$inst_id = $row['instructor_id'];
-				//$room_id = $row['classroom_id'];
-				//$timeslot = $row['time_slot_id'];
 				echo "<tr>";
 				echo "<td>$course_id</td>";
 				echo "<td>$section_id</td>";
 				echo "<td>$semester</td>";
 				echo "<td>$year</td>";
 				echo "<td>$inst_id</td>";
-				//echo "<td>$room_id</td>";
-				//echo "<td>$timeslot</td>";
 				echo "</tr>";
 			}
 			echo "</table>";
@@ -74,7 +68,6 @@
 			ORDER BY T.year";
 		$result = $mysqli->query($query);
 		if ($result->num_rows > 0) {
-			//echo "<h2>Sections taught before Spring 2025 with names + grades of students:</h2>";
 			echo "<table border = '1' cellpadding = '4' cellspacing = '0'>";
 			echo	"<tr><th>Course ID</th>
 					<th>Section ID</th>
