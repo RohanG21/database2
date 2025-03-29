@@ -1,19 +1,20 @@
 <?php 
 session_start();
-
 ?>
+
 <?php
 include "adminfunctions.php";
 include "conFunc.php";
 
-if(!isset($_SESSION["course"])){
-    $_SESSION["course"] = $_GET['selectgradercourse'];
-}
-
-$courseid = $_SESSION["course"];
+$_SESSION['selectedgradercourse'] = $_GET['selectgradercourse'];
+$courseid = $_GET['selectgradercourse'];
+echo "<h2> SELECTED COURSE: $courseid </h2>";
+echo "<br>";
+$_SESSION['selectedgradercourse'] = $courseid;
 
 $semester = getCurSemester();
 $semesterstr = '';
+
 
 if($semester = 'Spring') {
     $semesterstr = 'Spring';
@@ -26,6 +27,9 @@ else {
 $year = getCurYear();
 echo "semester: ,$semesterstr";
 echo "year: ",$year;
+$_SESSION['year'] = (int)$year;
+$SESSION['semester'] = $semesterstr;
+echo "<br>";
 
 $db_connection = mysqli_connect("localhost","root","");
 mysqli_select_db($db_connection,"collegesystem");
@@ -36,23 +40,17 @@ $query = mysqli_query($db_connection, "SELECT * FROM section WHERE section.semes
 #echo "<th> classroom_id </th>";
 #echo "<th> start time </th>";
 #echo "<th> end time </th>";
-echo "<form action  = 'selectuggrader.php'>";
+echo "<form action = 'selectundergradgrader.php'>";
 echo "<select name = 'selectsection' method = 'post'>";
 while($row = mysqli_fetch_array($query)){
-    #$timeslot = $row['time_slot_id'];
-    #$timestart = mysqli_query($db_connection,"SELECT start_time,end_time  FROM time_slot WHERE time_slot_id = '".$timeslot."'" );
-    #$timerow = mysqli_fetch_array($timestart);
+    $timeslot = $row['time_slot_id'];
+    $timestart = mysqli_query($db_connection,"SELECT start_time,end_time  FROM time_slot WHERE time_slot_id = '".$timeslot."'" );
+    $timerow = mysqli_fetch_array($timestart);
     echo "<option>$row[section_id]</option>";   
 }
 echo "</select>";
-echo "<p>";
+echo "<p align = left right>";
 echo "<button type = 'submit'> select undergrad grader </button>";
-echo "</p>";
-echo "</form>";
-
-echo "<form action = 'addsectionuggrader.php'>";
-echo "<p align = right>";
-echo "<button type = 'submit> select a different course </button>";
 echo "</p>";
 echo "</form>";
 
@@ -63,7 +61,6 @@ echo "</form>";
     #echo "<form "
     #echo "<button> select undergrad grader </button>";
     #echo "</tr>";
-
-echo "</table>";
+    #echo "</table>";
 
 ?>

@@ -8,20 +8,23 @@ include "conFunc.php";
     $conn = openConnection();
     echo "<br>";
     mysqli_select_db($conn,"collegesystem");
-    $grader = $_GET['selectundergradgrader'];
-    $_SESSION['selectedundergradgrader'] = $grader;
+
+    $_SESSION['selectedundergradgrader'] = $_GET['selectundergradgrader'];
+    $grader = $_SESSION['selectedundergradgrader'];
+
     #echo $grader;
     #echo $graderarr[0];
     #echo $graderarr[1];
     #$grader = 'Baylor Hinsey';
 
     #$grader = (string)$grader;
-    $course = $_SESSION['selectedgradercourse'];
+    $course = $_SESSION["course"];
     $query = "SELECT student.student_id, grade, class_standing FROM student INNER JOIN undergraduate ON student.student_id = undergraduate.student_id INNER JOIN take ON undergraduate.student_id = take.student_id WHERE student.name = '$grader' AND take.course_id = '$course' ";
     $result = mysqli_query($conn,$query);
+    
+    
     $row = mysqli_fetch_array($result);
     #echo "selected grader: $row[student_id]";
-    $_SESSION['selectedgraderid'] = $row['student_id'];
     echo "<h2>selected grader details: </h2>";
     echo "<br>";
     echo "<table border black 1px>";
@@ -35,6 +38,7 @@ include "conFunc.php";
     echo "</tr>";
     echo "</table>";
     echo "<br>";
+    
     
     echo "<form action = 'confirmuggrader.php' >";
     echo "<button> confirm grader </button>";
