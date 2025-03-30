@@ -11,42 +11,69 @@ $graderid = $_SESSION['selectedgraderid'];
 $year = $_SESSION['year'];
 $semester = $_SESSION['semester'];
 
-#echo $year;
-#echo "<br>";
-#echo $semester;
-#echo "<br>";
-#echo $graderid;
-#echo "<br>";
-#echo $course;
-#echo "<br>";
-#echo $section; 
-#echo "<br>";
+echo $year;
+echo "<br>";
+echo $semester;
+echo "<br>";
+echo $graderid;
+echo "<br>";
+echo $course;
+echo "<br>";
+echo $section; 
+echo "<br>";
 
 ?>
 
 <?php
 $conn = openConnection();
 mysqli_select_db($conn,"collegesystem");
-$searchprevgraderquery = "SELECT * FROM undergraduategrader WHERE course_id = '$course' AND section_id = '$section' AND semester = '$semester' AND year = '$year'";
-$searchprevgraderqueryresult = mysqli_query($conn,$searchprevgraderquery);
-while($row = mysqli_fetch_array($searchprevgraderqueryresult)){
-    $prevgraderid = $row['student_id'];
-    $getprevgradernamequery = "SELECT name FROM student WHERE student_id = $prevgraderid";
-    $getprevgradernamequeryresult = mysqli_query($conn,$getprevgradernamequery);
-    $prevgradernamerow = mysqli_fetch_array($getprevgradernamequeryresult);
-    
-    $deleteprevgraderquery = "DELETE FROM undergraduategrader WHERE course_id = '$course' AND section_id = '$section' AND semester = '$semester'AND year = '$year'";
-    mysqli_query($conn,$deleteprevgraderquery);
+$searchgraderprevquery = "SELECT * FROM undergraduategrader  WHERE student_id = '$graderid'";
+$searchgraderprevresult = mysqli_query($conn,$searchgraderprevquery);
+$row = mysqli_fetch_array($searchgraderprevresult);
+if ($row != NULL){
+    $prevcourseid = $row['course_id'];
+    $prevsectionid = $row['section_id'];
+    $prevsemester = $row['semester'];
+    $prevyear = $row['year'];
     echo "<br>";
-    echo "deleted undergraduate grader $prevgradernamerow[name] and replacing them with $grader"; 
+    echo "the selected undergraduate student is already grading $prevcourseid $prevsectionid $prevsemester $prevyear";
+    echo "<br>";
+    echo "<form action = 'index.php'>";
+    echo "<button type = 'submit'> Admin Homepage </button>";
+    echo "</form>";
+    echo "<br>";
+    echo "<form action = 'selectuggrader.php'>";
+    echo "<button type = 'submit'>  select a different grader </button>";
+    echo "</form>";
+    exit;
 }
+else {
+    $searchprevgraderquery = "SELECT * FROM undergraduategrader WHERE course_id = '$course' AND section_id = '$section' AND semester = '$semester' AND year = '$year'";
+    $searchprevgraderqueryresult = mysqli_query($conn,$searchprevgraderquery);
+    $prevgradertrue = 0;
+    while($row = mysqli_fetch_array($searchprevgraderqueryresult)){
+        $prevgraderid = $row['student_id'];
+        $getprevgradernamequery = "SELECT name FROM student WHERE student_id = $prevgraderid";
+        $getprevgradernamequeryresult = mysqli_query($conn,$getprevgradernamequery);
+        $prevgradernamerow = mysqli_fetch_array($getprevgradernamequeryresult);
+        $prevgradertrue = 1;
+    }
+    if ( $prevgradertrue == 1) {
+        $deleteprevgraderquery = "DELETE FROM undergraduategrader WHERE course_id = '$course' AND section_id = '$section' AND semester = '$semester'AND year = '$year'";
+        mysqli_query($conn,$deleteprevgraderquery);
+        echo "<br>";
+        echo "deleted undergraduate grader $prevgradernamerow[name] and replacing them with $grader"; 
+    }
+    
 
-$query = "INSERT INTO undergraduategrader VALUES('$graderid','$course','$section','$semester',$year)";
-mysqli_query($conn,$query);
-echo "<br>";
-echo "undergraduate grader $grader has been assigned to $course $section for $semester $year";
-echo "<br>";
-echo "<form action = 'index.php'>";
-echo "<button type = 'submit'> Admin Homepage </button>";
-echo "</form>";
+    $query = "INSERT INTO undergraduategrader VALUES('$graderid','$course','$section','$semester','$year')";
+    mysqli_query($conn,$query);
+    session_destroy();
+    echo "<br>";
+    echo "undergraduate grader $grader has been assigned to $course $section for $semester $year";
+    echo "<br>";
+    echo "<form action = 'index.php'>";
+    echo "<button type = 'submit'> Admin Homepage </button>";
+    echo "</form>";
+}
 ?>

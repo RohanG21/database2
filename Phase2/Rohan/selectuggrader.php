@@ -18,6 +18,9 @@ if(!isset($_SESSION['selectedgradersection'])) {
 
 $section = $_SESSION['selectedgradersection'];
 
+unset($_SESSION['selectedundergradgrader']);
+unset($_SESSION['selectedgraderid']);
+
 echo "<h1> Eligible Graders </h1>";
 echo "<h2> selected section: $section </h2>";
 
