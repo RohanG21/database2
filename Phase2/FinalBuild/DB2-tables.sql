@@ -382,6 +382,7 @@ INSERT INTO take values(101, 'CHEM1210','Section100','Spring',2025, 'A+');
 INSERT INTO take values(102, 'ENGN2050','Section100','Fall',2024, 'A-');
 INSERT INTO take values(103, 'PUBH2010','Section100','Spring',2025, 'A+');
 INSERT INTO take values(104, 'MATH2310','Section100','Spring',2025, 'A+');
+INSERT INTO take VALUES(106, 'COMP2010', 'Section100', 'Spring', 2024, 'A');
 
 INSERT INTO undergraduate values(100,58,'Junior');
 INSERT INTO undergraduate values(101,14,'Freshman');
