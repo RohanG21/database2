@@ -58,19 +58,33 @@ else {
         $prevgradernamerow = mysqli_fetch_array($getprevgradernamequeryresult);
         $prevgradertrue = 1;
     }
-    if ( $prevgradertrue == 1) {
-        $deleteprevgraderquery = "DELETE FROM undergraduategrader WHERE course_id = '$course' AND section_id = '$section' AND semester = '$semester'AND year = '$year'";
-        mysqli_query($conn,$deleteprevgraderquery);
-        echo "<br>";
-        echo "deleted undergraduate grader $prevgradernamerow[name] and replacing them with $grader"; 
-    }
+    #if ( $prevgradertrue == 1) {
+    #    $deleteprevgraderquery = "DELETE FROM undergraduategrader WHERE course_id = '$course' AND section_id = '$section' AND semester = '$semester'AND year = '$year'";
+    #    mysqli_query($conn,$deleteprevgraderquery);
+    #    echo "<br>";
+    #    echo "deleted undergraduate grader $prevgradernamerow[name] and replacing them with $grader"; 
+    #}
     
 
-    $query = "INSERT INTO undergraduategrader VALUES('$graderid','$course','$section','$semester','$year')";
-    mysqli_query($conn,$query);
+    #$query = "INSERT INTO undergraduategrader VALUES('$graderid','$course','$section','$semester','$year')";
+    #mysqli_query($conn,$query);
+    if ($prevgradertrue == 1){
+        $query = "UPDATE undergraduategrader SET student_id = $graderid WHERE course_id = '$course' AND section_id = '$section' AND semester = '$semester' AND year = '$year'";
+        mysqli_query($conn,$query);
+        
+        echo "<br>";
+        echo "updated $course $section grader from $prevgradernamerow[name] to $grader";
+    }
+
+    else{
+        $query = "INSERT INTO undergraduategrader VALUES('$graderid','$course','$section','$semester','$year')";
+        mysqli_query($conn,$query);
+        echo "undergraduate grader $grader has been assigned to $course $section for $semester $year";
+    }
+
     session_destroy();
-    echo "<br>";
-    echo "undergraduate grader $grader has been assigned to $course $section for $semester $year";
+    #echo "undergraduate grader $grader has been assigned to $course $section for $semester $year";
+    
     echo "<br>";
     echo "<form action = 'index.php'>";
     echo "<button type = 'submit'> Admin Homepage </button>";

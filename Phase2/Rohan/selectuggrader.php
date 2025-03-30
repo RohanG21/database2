@@ -7,22 +7,25 @@ include "adminfunctions.php";
 <?php
 $conn = openConnection();
 mysqli_select_db($conn,'collegesystem');
-if (!isset($_SESSION["course"])){
-    exit;
-}
+
+#if (!isset($_SESSION["course"])){
+#    exit;
+#}
+
 $courseid = $_SESSION["course"];
+echo $_GET['selectsection'];
+
+$section = $_GET['selectsection'];
 
 if(!isset($_SESSION['selectedgradersection'])) {
-    $_SESSION['selectedgradersection'] = $_GET['selectsection'];
+    $_SESSION['selectedgradersection'] = $section;
 }
-
-$section = $_SESSION['selectedgradersection'];
 
 unset($_SESSION['selectedundergradgrader']);
 unset($_SESSION['selectedgraderid']);
 
 echo "<h1> Eligible Graders </h1>";
-echo "<h2> selected section: $section </h2>";
+echo "<h2> selected section: $section</h2>";
 
 #echo "<table>";
 #echo "<th> student_id </th>";
@@ -33,12 +36,12 @@ echo "<h2> selected section: $section </h2>";
 getEligibleGraders($conn,$courseid);
 
 echo "<form action = 'selectsectionforuggrader.php'>";
-echo "<button type = 'submit'> select a different section </button>";
+echo "<button type = 'submit'> section page </button>";
 echo "</form>";
 
 echo "<br>";
 echo "<form action =  'addsectionuggrader.php'>";
-echo "<button type = 'submit'> select a different course </button>";
+echo "<button type = 'submit'> course page </button>";
 
 
 
