@@ -18,8 +18,8 @@
 	$result = $mysqli->query($find_id);
 	$row = $result->fetch_assoc();
 	$ins_id = $row["instructor_id"];
-	$current_semester = 'Spring';
-	$current_year = 2025;
+	//$current_semester = 'Spring';
+	//$current_year = 2025;
 ?>
 
 <!DOCTYPE html>
