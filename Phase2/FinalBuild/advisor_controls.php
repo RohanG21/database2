@@ -3,7 +3,7 @@
 	session_start();
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$email = $_POST["email"];
-		$password = $_POST["password"];
+		$password = $_POST["email"];
 		$_SESSION['email'] = $email;
 		$_SESSION['password'] = $password;
 
@@ -21,11 +21,8 @@
 	
 	// have to include this section because the page must be accesible by both instructors and admins
 	$ins_id = '';
-	//$admin_id = '';
 	$is_instructor = false;
 	$is_admin = false;
-	//$email = '';
-	//$password = '';
 	if((isset($_SESSION['email']))) {
 		$email = $_SESSION['email'];
 		$password = $_SESSION['password'];
@@ -88,18 +85,11 @@
 		$row = $find_id_result->fetch_assoc();
 		$ins_id = $row['instructor_id'];
 	} else if ($is_admin == true) {
-		//$find_id_query = "SELECT instructor_id FROM instructor WHERE instructor.email = '$email'";
-		//$find_id_result = $mysqli->query($find_id_query);
-		//$row = $find_id_result->fetch_assoc();
-		//$ins_id = $row['instructor_id'];
 	} else {}  // this line should never be reached on this page
 	
 	
 	$current_semester = "Spring";
 	$current_year = 2025;
-	//$email = $_SESSION['email'];
-	//$password = $_SESSION['password'];
-	//$ins_id = $_SESSION['ins_id'];
 	$chosen_phd = "";
 	
 	// Following lines ensures neccesary info on the selected student persists between form usage
@@ -240,7 +230,7 @@
 
 		$adv_cnt_query = "SELECT * FROM advise WHERE student_id = $chosen_phd";
 		$adv_cnt_result = $mysqli->query($adv_cnt_query);
-		if ($adv_cnt_result->num_rows >= 2) { // setting == 1 correctly triggers message
+		if ($adv_cnt_result->num_rows >= 2) {
 			echo "<p>Student already has maximum number of advisors.</p>";
 		} 
 		else { ?>
@@ -252,20 +242,27 @@
 					$sel_ins_query = "SELECT instructor_id, instructor_name FROM instructor";
 					$sel_ins_result = $mysqli->query($sel_ins_query);
 					while ($ins = $sel_ins_result->fetch_assoc()) {
-						echo "<option value='".$ins['instructor_id']."'>".$ins['instructor_id'].", ".$ins['instructor_name']."</option>";
+						$tmp_ins_id = $ins['instructor_id'];
+						$prevent_dupe_query = "SELECT * FROM advise WHERE instructor_id = '$tmp_ins_id' AND student_id = '$chosen_phd'";
+						$prevent_dupe_result = $mysqli->query($prevent_dupe_query);
+						$row_cnt = $prevent_dupe_result->num_rows;
+						if ($row_cnt == 0) {  // if != 0, offering the instructor as an option would cause duplicate entries
+							echo "<option value='".$ins['instructor_id']."'>".$ins['instructor_id'].", ".$ins['instructor_name']."</option>";
+						} else {
+						}
 					}
 				?>
 			</select>
 			<br><br>
 			<input type="hidden" name="chosen_phd" value="<?php echo $chosen_phd;?>">
 			<div>
-				<label for="start_date">Enter advising start date YYYY-MM-DD (include dashes):</label>
-				<input type="text" id="start_date" name="start_date" maxlength="10" required>
+				<label for="start_date">Enter advising start date:</label>
+				<input type = "date" name = "start_date" id = "start_date" required>
 			</div>
 			<br>
 			<div>
-				<label for="end_date">Optional: enter advising end date YYYY-MM-DD (include dashes):</label>
-				<input type="text" id="end_date" name="end_date" maxlength="10">
+				<label for="end_date">Optional: enter advising end date:</label>
+				<input type = "date" name = "end_date" id = "end_date">
 			</div>
 			<br>
 			<input type = "hidden" name = "email" value="<?php echo $email;?>">
@@ -289,7 +286,6 @@
 					$mysqli->query($new_advisor);
 				}
 				echo "<p>New entry added to the advise table. If added as your advisee, re-select to see related options.</p>";
-				
 			}
 
 		} ?>
@@ -345,13 +341,13 @@
 				</div>
 				<br>
 				<div>
-					<label for="new_def">Enter new defence date YYYY-MM-DD (include dashes):</label>
-					<input type="text" id="new_def" name="new_def" maxlength="10">
+					<label for="new_def">Enter new defence date:</label>
+					<input type = "date" name = "new_def" id = "new_def">
 				</div>
 				<br>
 				<div>
-					<label for="new_diss">Enter new dissertation date YYYY-MM-DD (include dashes):</label>
-					<input type="text" id="new_diss" name="new_diss" maxlength="10">
+					<label for="new_diss">Enter new dissertation date:</label>
+					<input type = "date" name = "new_diss" id = "new_diss">
 				</div>
 				<br>
 				<input type = "hidden" name = "email" value="<?php echo $email;?>">
