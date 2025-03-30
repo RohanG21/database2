@@ -3,11 +3,11 @@
 	session_start();
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$email = $_POST["email"];
-		$password = $_POST["email"];
+		$password = $_POST["password"];
 		$_SESSION['email'] = $email;
 		$_SESSION['password'] = $password;
 
-	} else if (isset($_SESSION['email']) && isset($_SESSION['password'])) {
+	} else if (isset($_SESSION['email'])) {
 		$email = $_SESSION['email'];
 		$password = $_SESSION['password'];
 	} else {
