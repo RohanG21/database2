@@ -241,6 +241,7 @@ insert into account (email, password, type) values ('slin@cs.uml.edu', '123456',
 insert into account (email, password, type) values ('Yelena_Rykalova@uml.edu', '123456', 'instructor');
 insert into account (email, password, type) values ('Johannes_Weis@uml.edu', '123456', 'instructor');
 insert into account (email, password, type) values ('Charles_Wilkes@uml.edu', '123456', 'instructor');
+INSERT INTO account (email, password, type) VALUES ('mattfensu@student.uml.edu', '123', 'student');
 
 
 insert into course (course_id, course_name, credits) values ('COMP1010', 'Computing I', 3);
