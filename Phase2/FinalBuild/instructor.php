@@ -14,12 +14,12 @@
 		echo "<a href='$url'>Return to Login Menu</a><br>";
 		exit("Error: Invalid Credentials");
 	}
-	//$_SESSION['email'] = $email;
-	//$_SESSION['password'] = $password;
 	$find_id = "SELECT instructor_id FROM instructor WHERE email = '$email'";
 	$result = $mysqli->query($find_id);
 	$row = $result->fetch_assoc();
 	$ins_id = $row["instructor_id"];
+	$current_semester = 'Spring';
+	$current_year = 2025;
 ?>
 
 <!DOCTYPE html>
@@ -30,13 +30,12 @@
 <body>
 <center>
 <h1> Instructor Homepage </h1>
-</center>
 
 <form method = "POST" action = "mark_absent.php">
 <input type = "hidden" name = "email" value="<?php echo $email;?>">
 <input type = "hidden" name = "password" value="<?php echo $password;?>">
 <input type = "submit" value = "Take Attendance">
-<center>
+
 <details>
 	<summary><h2>View taught section information</h2></summary>
 	<details>
@@ -137,8 +136,8 @@
 					<th>Semester</th>
 					<th>Year</th>
 					<th>Student name</th>
-					<th>Grade</th>
 					</tr>";
+					//<th>Grade</th>
 		
 			while ($row = $result->fetch_assoc()) {
 				$course_id = $row['course_id'];
@@ -146,14 +145,14 @@
 				$semester = $row['semester'];
 				$year = $row['year'];
 				$stu_name = $row['name'];
-				$stu_grade = $row['grade'];
+				//$stu_grade = $row['grade'];
 				echo "<tr>";
 				echo "<td>$course_id</td>";
 				echo "<td>$section_id</td>";
 				echo "<td>$semester</td>";
 				echo "<td>$year</td>";
 				echo "<td>$stu_name</td>";
-				echo "<td>$stu_grade</td>";
+				//echo "<td>$stu_grade</td>";
 				echo "</tr>";
 			}
 			echo "</table>";
