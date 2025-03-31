@@ -42,7 +42,7 @@ table, th, td {
 		$credits = $num_credits['amount'];
 	}
 	echo "Total Number of Credits Earned: $credits<br>";
-	$gpa = "SELECT grade FROM take WHERE student_id = $sid";
+	$gpa = "SELECT grade FROM take WHERE student_id = $sid AND ((year < '$current_year') or (year = '$current_year' and semester <> 'Spring'))";
 	$query = $mysqli->query($gpa);
 	$num_rows = $query->num_rows;
 	$total_grade = 0.0;

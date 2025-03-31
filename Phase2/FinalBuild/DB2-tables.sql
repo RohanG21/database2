@@ -343,6 +343,7 @@ INSERT INTO take values(123, 'COMP1010','Section101','Spring',2025, 'C');
 INSERT INTO take values(124, 'COMP1010','Section101','Spring',2025, 'D');
 INSERT INTO take values(125, 'COMP1010','Section101','Spring',2025, 'D-');
 INSERT INTO take values(126, 'COMP1010','Section101','Spring',2025, 'F');
+INSERT INTO take values(103, 'COMP1010','Section101','Fall',2023,'A-');
 
 INSERT INTO take values(116, 'MATH1310', 'Section101', 'Spring', 2025, 'A');
 INSERT INTO take values(117, 'MATH1310', 'Section101', 'Spring', 2025, 'A-');
@@ -350,7 +351,7 @@ INSERT INTO take values(118, 'MATH1310', 'Section101', 'Spring', 2025, 'A');
 INSERT INTO take values(119, 'MATH1310', 'Section101', 'Spring', 2025, 'B');
 INSERT INTO take values(120, 'MATH1310', 'Section101', 'Spring', 2025, 'C+');
 INSERT INTO take values(121, 'MATH1310', 'Section101', 'Spring', 2024, 'A');
-INSERT INTO take values(111, 'MATH1310', 'Section101', 'Spring', 2024, 'A');
+INSERT INTO take values(122, 'MATH1310', 'Section101', 'Spring', 2024, 'A');
 
 INSERT INTO phd VALUES(106,'Pass',20230516,20250516);
 INSERT INTO phd VALUES(107,'Pass',20220925,20260312);
@@ -399,9 +400,10 @@ INSERT INTO master values(112,150);
 INSERT INTO master values(113,150);
 INSERT INTO master values(114,146);
 INSERT INTO master values(115,139);
+INSERT INTO master values(122,150);
 
 INSERT INTO undergraduategrader values(100, 'COMP1020','Section101','Spring',2024);
-INSERT INTO undergraduategrader values(100, 'CHEM1210','Section100','Spring',2025);
+INSERT INTO undergraduategrader values(101, 'CHEM1210','Section100','Spring',2025);
 INSERT INTO undergraduategrader values(102,'MATH2310','Section100','Spring',2025);
 INSERT INTO undergraduategrader values(103,'PUBH2010','Section100','Spring',2025);
 INSERT INTO undergraduategrader values(103,'ENGN2050','Section100','Fall',2024);
@@ -425,7 +427,7 @@ INSERT INTO attendance values(118, 'COMP1010','Section101','Spring',2025, '2023-
 INSERT INTO attendance values(101, 'CHEM1210','Section100','Spring',2025, '2025-03-18');
 
 INSERT INTO rating values(116, 'COMP1010', 'Section101', 'Spring', 2025, 1, '2025-02-02', 10);
-INSERT INTO rating values(116, 'COMP1010', 'Section101', 'Spring', 2025, 1, '2025-02-09', 10);
+INSERT INTO rating values(118, 'COMP1010', 'Section101', 'Spring', 2025, 1, '2025-02-02', 10);
 INSERT INTO rating values(116, 'COMP1010', 'Section101', 'Spring', 2025, 1, '2025-02-16', 10);
 INSERT INTO rating values(116, 'COMP1010', 'Section101', 'Spring', 2025, 1, '2025-02-23', 10);
 INSERT INTO rating values(116, 'COMP1010', 'Section101', 'Spring', 2025, 1, '2025-03-02', 10);

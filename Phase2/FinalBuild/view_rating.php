@@ -43,7 +43,7 @@ table, th, td {
 		<option disabled selected value> -- select a professor -- </option>
 	<?php
 		while ($professors= $result->fetch_assoc()) {
-			echo "<option value='".$professors['course_id'].",".$professors['section_id'].",".$professors['instructor_id'].",".$professors['instructor_name'].",".$professors['semester'].",".$professors['year']."'>".$professors['instructor_name']." (".$professors['course_id'].", ".$professors['semester']." ".$professors['year'].")</option>";
+			echo "<option value='".$professors['course_id'].",".$professors['section_id'].",".$professors['instructor_id'].",".$professors['instructor_name'].",".$professors['semester'].",".$professors['year']."'>".$professors['instructor_name']." (".$professors['course_id']." ".$professors['section_id'].", ".$professors['semester']." ".$professors['year'].")</option>";
 		}
 	?>
 	</select>

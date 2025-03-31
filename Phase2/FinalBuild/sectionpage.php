@@ -14,7 +14,6 @@
 	}
 ?>
 <?php 
-//session_start();
 $_SESSION["course"] = $_GET['course'];
 ?>
 <?php
@@ -38,9 +37,6 @@ else {
 $year = getCurYear();
 $_SESSION['year'] = $year;
 $_SESSION['semester'] = $semesterstr;
-
-#echo "semester: ,$semesterstr";
-#echo "year: ",$year;
 
 $db_connection = mysqli_connect("localhost","root","");
 mysqli_select_db($db_connection,"db2");

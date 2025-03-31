@@ -96,7 +96,6 @@
         echo "selected course: ";
         echo $row['course_id'];
         echo " ";
-        #echo $row['section_id'];
         echo "<br>";
         echo "<form action = 'admin.php' name = 'goback'>";
 	echo "<input type = 'hidden' name = 'email' value='<?php echo $email;?>'>";
@@ -109,8 +108,6 @@
    
     switch($timeslotid){
         case('TS4'):
-            #echo "TS4 case";
-            #echo "<br>";
             $conflicttslotquery = mysqli_query($conn,"SELECT course_id,section_id,classroom_id,time_slot_id,semester,year FROM section WHERE classroom_id = '$classroom' AND semester = '$semester' AND (year = '$year' AND (time_slot_id = 'TS1' OR time_slot_id = 'TS2'))");
             while($row = mysqli_fetch_array($conflicttslotquery)){
                 if ($row != NULL) {
@@ -124,8 +121,6 @@
             break;
                     
         case('TS5'):
-            #echo "TS5 case";
-            #cho "<br>";
             $conflictcoursequery = mysqli_query($conn,"SELECT course_id,section_id,classroom_id,time_slot_id,semester,year FROM section WHERE classroom_id = '$classroom' AND semester = '$semester' AND year = '$year' AND (time_slot_id = 'TS2' OR time_slot_id = 'TS3')");
             while($row = mysqli_fetch_array($conflictcoursequery)){
                 if ($row != NULL){
@@ -141,8 +136,6 @@
                 
 
         case('TS1'):
-           #echo "TS1 case";
-           #echo "<br>";
             $conflictcoursequery = mysqli_query($conn,"SELECT course_id,section_id,classroom_id,time_slot_id,semester,year FROM section WHERE semester = '$semester' AND year = '$year' AND classroom_id = '$classroom' AND time_slot_id = 'TS4'");
             while($row = mysqli_fetch_array($conflictcoursequery)){
                 if ($row != NULL){
@@ -159,8 +152,6 @@
 
 
             case('TS2'):
-                #echo "TS2 case";
-                #echo "<br>";
                 $conflictcoursequery = mysqli_query($conn,"SELECT course_id,section_id,classroom_id,semester,year,time_slot_id FROM section WHERE classroom_id = '$classroom' AND semester = '$semester' AND year = '$year' AND (time_slot_id = 'TS4' OR time_slot_id = 'TS5')");
                 while($row = mysqli_fetch_array($conflictcoursequery)){
                     if($row != NULL){
@@ -179,8 +170,6 @@
                 
 
             case('TS3'):
-                #echo "TS3 case";
-                #echo "<br>";
                 $conflictcoursequery = mysqli_query($conn,"SELECT course_id,section_id,classroom_id,time_slot_id,semester,year FROM section WHERE semester = '$semester' AND year = '$year' AND classroom_id = '$classroom' AND time_slot_id = 'TS5'");
                 while($row = mysqli_fetch_array($conflictcoursequery)){
                     if ($row != NULL){

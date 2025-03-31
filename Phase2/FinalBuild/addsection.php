@@ -48,9 +48,6 @@ echo "</select>";
 echo "<br>";
 echo "<br>";
 
-#echo "selected course id: ";
-#echo $_SESSION["course"];
-#echo "<br>";
 echo "<label for = 'classroombuilding'> classroom building: </label>";
 
 $classroomidquery = mysqli_query($connection,"SELECT classroom_id FROM classroom");
@@ -61,17 +58,6 @@ while ($row = mysqli_fetch_array($classroomidquery)){
     echo "<option> $row[classroom_id] </option>";
 }
 echo "</select>";
-
-#$courseid = $_SESSION["course"];
-#$subjabbr = substr($courseid,0,4);
-#echo "subject abbreviation: $subjabbr ";
-#$department = getSubjDept($subjabbr);
-
-#if ($department = "NULL"){
-#    echo "no department found for abbr";
-    
-#}
-
 
 #$query = mysqli_query($connection,"SELECT department FROM course WHERE course_id = '".$courseid."'");
 #$row = mysqli_fetch_array($query);

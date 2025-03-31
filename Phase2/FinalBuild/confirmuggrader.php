@@ -16,17 +16,6 @@ $result = $mysqli->query($query);
 $row = $result->fetch_assoc();
 $grader = $row['name'];
 
-#echo $year;
-#echo "<br>";
-#echo $semester;
-#echo "<br>";
-#echo $graderid;
-#echo "<br>";
-#echo $course;
-#echo "<br>";
-#echo $section; 
-#echo "<br>";
-
 ?>
 
 <?php
@@ -62,14 +51,6 @@ if ($row != NULL){
         $prevgradernamerow = mysqli_fetch_array($getprevgradernamequeryresult);
         $prevgradertrue = 1;
     }
-  #  if ( $prevgradertrue == 1) {
-   #     $deleteprevgraderquery = "DELETE FROM undergraduategrader WHERE course_id = '$course' AND section_id = '$section' AND semester = #'$semester'AND year = '$year'";
- #       mysqli_query($conn,$deleteprevgraderquery);
-  #      echo "<br>";
-   #     echo "deleted undergraduate grader $prevgradernamerow[name] and replacing them with $grader";  
-#}
-#$query = "INSERT INTO undergraduategrader VALUES('$graderid','$course','$section','$semester',$year)";
-#mysqli_query($conn,$query);
 
 $query = "Select distinct name, student.student_id from student, mastergrader where course_id = '$course' and section_id = '$section' and semester = '$semester' and year = '$year' and student.student_id = mastergrader.student_id";
 $result = $mysqli->query($query);
@@ -90,7 +71,7 @@ if ($result->num_rows == 0) {
 		echo "<br>";
 		echo "updated $course $section grader from $prevgrader to $grader";
 	} else if ($prevgradertrue == 1) {
-		$query = "Delete from undergradgrader where course_id = '$course' and section_id = '$section' and semester = '$semester' and year = '$year'";
+		$query = "Delete from undergraduategrader where course_id = '$course' and section_id = '$section' and semester = '$semester' and year = '$year'";
 		mysqli_query($conn, $query);
 		$query = "INSERT INTO mastergrader VALUES('$graderid','$course','$section','$semester','$year')";
 		mysqli_query($conn, $query);

@@ -120,62 +120,62 @@
 						case 'A+':
 							$update = "UPDATE take SET grade = 'A' WHERE student_id = '$stid' and course_id = '$cid' and section_id = '$seid' and semester = '$current_semester' and year = '$current_year'";
 							$mysqli->query($update);
-							echo "Student has been absent $count times, student's grade is now an A";
+							echo "Student has been absent $count times, student's grade is now an A<br>";
 							break;
 						case 'A':
 							$update = "UPDATE take SET grade = 'A-' WHERE student_id = '$stid' and course_id = '$cid' and section_id = '$seid' and semester = '$current_semester' and year = '$current_year'";
 							$mysqli->query($update);
-							echo "Student has been absent $count times, student's grade is now an A-";
+							echo "Student has been absent $count times, student's grade is now an A-<br>";
 							break;
 						case 'A-':
 							$update = "UPDATE take SET grade = 'B+' WHERE student_id = '$stid' and course_id = '$cid' and section_id = '$seid' and semester = '$current_semester' and year = '$current_year'";
 							$mysqli->query($update);
-							echo "Student has been absent $count times, student's grade is now a B+";
+							echo "Student has been absent $count times, student's grade is now a B+<br>";
 							break;
 						case 'B+':
 							$update = "UPDATE take SET grade = 'B' WHERE student_id = '$stid' and course_id = '$cid' and section_id = '$seid' and semester = '$current_semester' and year = '$current_year'";
 							$mysqli->query($update);
-							echo "Student has been absent $count times, student's grade is now a B";
+							echo "Student has been absent $count times, student's grade is now a B<br>";
 							break;
 						case 'B':
 							$update = "UPDATE take SET grade = 'B-' WHERE student_id = '$stid' and course_id = '$cid' and section_id = '$seid' and semester = '$current_semester' and year = '$current_year'";
 							$mysqli->query($update);
-							echo "Student has been absent $count times, student's grade is now a B-";
+							echo "Student has been absent $count times, student's grade is now a B-<br>";
 							break;
 						case 'B-':
 							$update = "UPDATE take SET grade = 'C+' WHERE student_id = '$stid' and course_id = '$cid' and section_id = '$seid' and semester = '$current_semester' and year = '$current_year'";
 							$mysqli->query($update);
-							echo "Student has been absent $count times, student's grade is now a C+";
+							echo "Student has been absent $count times, student's grade is now a C+<br>";
 							break;
 						case 'C+':
 							$update = "UPDATE take SET grade = 'C' WHERE student_id = '$stid' and course_id = '$cid' and section_id = '$seid' and semester = '$current_semester' and year = '$current_year'";
 							$mysqli->query($update);
-							echo "Student has been absent $count times, student's grade is now a C";
+							echo "Student has been absent $count times, student's grade is now a C<br>";
 							break;
 						case 'C':
 							$update = "UPDATE take SET grade = 'C-' WHERE student_id = '$stid' and course_id = '$cid' and section_id = '$seid' and semester = '$current_semester' and year = '$current_year'";
 							$mysqli->query($update);
-							echo "Student has been absent $count times, student's grade is now a C-";
+							echo "Student has been absent $count times, student's grade is now a C-<br>";
 							break;
 						case 'C-':
 							$update = "UPDATE take SET grade = 'D+' WHERE student_id = '$stid' and course_id = '$cid' and section_id = '$seid' and semester = '$current_semester' and year = '$current_year'";
 							$mysqli->query($update);
-							echo "Student has been absent $count times, student's grade is now a D+";
+							echo "Student has been absent $count times, student's grade is now a D+<br>";
 							break;
 						case 'D+':
 							$update = "UPDATE take SET grade = 'D' WHERE student_id = '$stid' and course_id = '$cid' and section_id = '$seid' and semester = '$current_semester' and year = '$current_year'";
 							$mysqli->query($update);
-							echo "Student has been absent $count times, student's grade is now a D";
+							echo "Student has been absent $count times, student's grade is now a D<br>";
 							break;
 						case 'D':
 							$update = "UPDATE take SET grade = 'D-' WHERE student_id = '$stid' and course_id = '$cid' and section_id = '$seid' and semester = '$current_semester' and year = '$current_year'";
 							$mysqli->query($update);
-							echo "Student has been absent $count times, student's grade is now a D-";
+							echo "Student has been absent $count times, student's grade is now a D-<br>";
 							break;
 						case 'D-':
 							$update = "UPDATE take SET grade = 'F' WHERE student_id = '$stid' and course_id = '$cid' and section_id = '$seid' and semester = '$current_semester' and year = '$current_year'";
 							$mysqli->query($update);
-							echo "Student has been absent $count times, student's grade is now an F";
+							echo "Student has been absent $count times, student's grade is now an F<br>";
 							break;
 						case 'F':
 							echo "Student already has an F in the class<br>";

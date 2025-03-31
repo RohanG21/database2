@@ -31,7 +31,6 @@ $year = date("Y");
 $_SESSION["semester"] = $semester;
 $_SESSION["year"] = $year;
 unset($_SESSION["course"]);
-#echo "Today is " ,$monthint; 
 echo "<br>";
 echo "the current semester is ",$semester;
 echo "year: $year";

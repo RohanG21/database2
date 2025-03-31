@@ -1,7 +1,6 @@
 <?php
 	include 'config.php';
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		//if (isset($_POST["student_id"]))
 		$sid = $_POST["student_id"];
 		$name = $_POST["name"];
 		$email = $_POST["email"];
