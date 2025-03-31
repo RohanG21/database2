@@ -1,20 +1,20 @@
 <?php 
 session_start();
-?>
 
+?>
 <?php
 include "adminfunctions.php";
 include "conFunc.php";
 
-$_SESSION['selectedgradercourse'] = $_GET['selectgradercourse'];
-$courseid = $_GET['selectgradercourse'];
-echo "<h2> SELECTED COURSE: $courseid </h2>";
-echo "<br>";
-$_SESSION['selectedgradercourse'] = $courseid;
+if(!isset($_SESSION["course"])){
+    $_SESSION["course"] = $_GET['selectgradercourse'];
+}
+unset($_SESSION['selectedgradersection']);
+
+$courseid = $_SESSION["course"];
 
 $semester = getCurSemester();
 $semesterstr = '';
-
 
 if($semester = 'Spring') {
     $semesterstr = 'Spring';
@@ -23,12 +23,13 @@ if($semester = 'Spring') {
 else {
     $semesterstr = 'Fall';
 }
+echo "<h1> Selected course: $courseid </h1>";
 
 $year = getCurYear();
 echo "semester: ,$semesterstr";
 echo "year: ",$year;
-$_SESSION['year'] = (int)$year;
-$SESSION['semester'] = $semesterstr;
+echo "<br>";
+echo "select a section: ";
 echo "<br>";
 
 $db_connection = mysqli_connect("localhost","root","");
@@ -40,17 +41,28 @@ $query = mysqli_query($db_connection, "SELECT * FROM section WHERE section.semes
 #echo "<th> classroom_id </th>";
 #echo "<th> start time </th>";
 #echo "<th> end time </th>";
-echo "<form action = 'selectgrader.php'>";
-echo "<select name = 'selectsection' method = 'post'>";
+echo "<form action  = 'selectgrader.php'>";
+echo "<select method = 'post' name = 'selectsection'>";
+$sectionrowtrue = 0;
 while($row = mysqli_fetch_array($query)){
-    $timeslot = $row['time_slot_id'];
-    $timestart = mysqli_query($db_connection,"SELECT start_time,end_time  FROM time_slot WHERE time_slot_id = '".$timeslot."'" );
-    $timerow = mysqli_fetch_array($timestart);
+    #$timeslot = $row['time_slot_id'];
+    #$timestart = mysqli_query($db_connection,"SELECT start_time,end_time  FROM time_slot WHERE time_slot_id = '".$timeslot."'" );
+    #$timerow = mysqli_fetch_array($timestart);
     echo "<option>$row[section_id]</option>";   
+    $sectionrowtrue = 1; 
 }
 echo "</select>";
-echo "<p align = left right>";
-echo "<button type = 'submit'> select a grader </button>";
+if ($sectionrowtrue == 1) {
+    echo "<p>";
+    echo "<button type = 'submit'> select a grader </button>"; 
+    echo "</p>";
+}
+
+echo "</form>";
+
+echo "<form action = 'addsectionuggrader.php'>";
+echo "<p align = right>";
+echo "<button type = 'submit> course page </button>";
 echo "</p>";
 echo "</form>";
 

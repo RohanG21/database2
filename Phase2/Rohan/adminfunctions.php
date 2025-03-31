@@ -40,10 +40,9 @@ function getEligibleGraders($conn,$course):void{
         echo "<br>";
         echo "no undergraduate grader can be assigned because there needs to be 5-10 students in the class section";
         echo "<br>";
-        echo "<form action = 'selectsectionforuggrader.php'>";
+        echo "<form action = 'selectsectionforgrader.php'>";
         echo "<button type = 'submit'> section page </button>";
         echo "</form>";
-        echo "<br>";
         echo "<br>";
         echo "<form action = 'index.php'>";
         echo "<button type = 'submit'> Admin Homepage </button>"; 
@@ -53,7 +52,10 @@ function getEligibleGraders($conn,$course):void{
     
     $query = "SELECT name FROM collegesystem.student INNER JOIN collegesystem.undergraduate ON collegesystem.student.student_id = collegesystem.undergraduate.student_id INNER JOIN collegesystem.take ON collegesystem.student.student_id = collegesystem.take.student_id WHERE collegesystem.take.course_id = '$course' AND (collegesystem.take.grade = 'A' OR collegesystem.take.grade = 'A-')";
     $result = mysqli_query($conn,$query); 
-    echo "<form action = 'selecteduggraderinfo.php'>";
+    echo "<form action = 'selectedugraderinfo.php'>";
+    echo "select an undergraduate grader: ";
+    echo "<br>"; 
+    echo "<br>";
     echo "<select name = 'selectundergradgrader' method = 'post'>";
     $uggraderrowtrue = 0; 
 
@@ -70,15 +72,77 @@ function getEligibleGraders($conn,$course):void{
     echo "</form>";
 
     if ($uggraderrowtrue == 0){
-        echo "no graders available to be selected for $course with the listed section number in the current semester";
+        echo "no undergraduate graders available to be selected for $course with the listed section number in the current semester";
         echo "<br>";
     }
-    echo "<form action = 'index.php'>";
-    echo "<button type = 'submit'> Admin Homepage </button>"; 
-    echo "</form>"; 
+    
 
 }
 
+function getEligibleMasterGraders($conn,$course){
+
+#$query = "SELECT name FROM collegesystem.student INNER JOIN collegesystem.undergraduate AS student_info JOIN collegesystem.take ON student_info.student_id = collegesystem.take.student_id WHERE (collegesystem.take.course_id = '$course' AND collegesystem.take.grade = 'B')";
+    $section = $_SESSION['selectedgradersection'];
+    $semester = $_SESSION['semester'];
+    $year = $_SESSION['year'];
+
+    #echo  $course;
+    #echo "<br>";
+    #echo $section; 
+    #echo "<br>";
+    #echo $semester;
+    #echo "<br>";
+    #echo $year;
+    #echo "<br>";
+
+    $countstudentsquery = "SELECT COUNT(*) AS count FROM collegesystem.take WHERE collegesystem.take.course_id = '$course' AND collegesystem.take.section_id = '$section' AND collegesystem.take.semester = '$semester' AND collegesystem.take.year = '$year'";
+    $countstudentsresult = mysqli_query($conn,$countstudentsquery);
+    $countstudentsrow = mysqli_fetch_array($countstudentsresult);
+    $countstudents = $countstudentsrow['count'];
+    $countstudents = (int)$countstudents;
+    
+    if ($countstudents > 10 || $countstudents < 5){
+        echo "$countstudents students found taking this course section in $semester $year";
+        echo "<br>";
+        echo "no master grader can be assigned because there needs to be 5-10 students in the class section";
+        echo "<br>";
+        echo "<form action = 'selectsectionforgrader.php'>";
+        echo "<button type = 'submit'> section page </button>";
+        echo "</form>";
+        echo "<br>";
+        echo "<br>";
+        echo "<form action = 'index.php'>";
+        echo "<button type = 'submit'> Admin Homepage </button>"; 
+        echo "</form>"; 
+        exit;
+    }
+    
+    $query = "SELECT name FROM collegesystem.student INNER JOIN collegesystem.master ON collegesystem.student.student_id = collegesystem.master.student_id INNER JOIN collegesystem.take ON collegesystem.student.student_id = collegesystem.take.student_id WHERE collegesystem.take.course_id = '$course' AND (collegesystem.take.grade = 'A' OR collegesystem.take.grade = 'A-')";
+    $result = mysqli_query($conn,$query); 
+    echo "Select a master grader: ";
+    echo "<br>";
+    echo "<br>";
+    echo "<form action = 'selectedmgraderinfo.php'>";
+    echo "<select name = 'selectmastergrader' method = 'post'>";
+    $mggraderrowtrue = 0;
+
+
+    while($row = mysqli_fetch_array($result)){
+        echo "<option> $row[name] </option>";
+        $mggraderrowtrue = 1;
+    }
+    echo "</select>";
+    if ($mggraderrowtrue == 1){
+        echo "<button type = 'submit'> Select </button>";
+        echo "<br>";
+    }
+    echo "</form>";
+
+    if ($mggraderrowtrue == 0){
+        echo "no master graders available to be selected for $course with the listed section number in the current semester";
+        echo "<br>";
+    }
+}
 
 
 #function getSubjDept($subject) {
