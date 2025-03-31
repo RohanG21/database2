@@ -11,6 +11,11 @@ $graderid = $_SESSION['selectedgraderid'];
 $year = $_SESSION['year'];
 $semester = $_SESSION['semester'];
 
+$query = "Select name from student where student_id = '$graderid'";
+$result = $mysqli->query($query);
+$row = $result->fetch_assoc();
+$grader = $row['name'];
+
 #echo $year;
 #echo "<br>";
 #echo $semester;
@@ -27,28 +32,100 @@ $semester = $_SESSION['semester'];
 <?php
 $conn = $mysqli;
 mysqli_select_db($conn,"db2");
-$searchprevgraderquery = "SELECT * FROM undergraduategrader WHERE course_id = '$course' AND section_id = '$section' AND semester = '$semester' AND year = '$year'";
-$searchprevgraderqueryresult = mysqli_query($conn,$searchprevgraderquery);
-while($row = mysqli_fetch_array($searchprevgraderqueryresult)){
-    $prevgraderid = $row['student_id'];
-    $getprevgradernamequery = "SELECT name FROM student WHERE student_id = $prevgraderid";
-    $getprevgradernamequeryresult = mysqli_query($conn,$getprevgradernamequery);
-    $prevgradernamerow = mysqli_fetch_array($getprevgradernamequeryresult);
-    
-    $deleteprevgraderquery = "DELETE FROM undergraduategrader WHERE course_id = '$course' AND section_id = '$section' AND semester = '$semester'AND year = '$year'";
-    mysqli_query($conn,$deleteprevgraderquery);
+$searchgraderprevquery = "SELECT * FROM undergraduategrader WHERE student_id = '$graderid'";
+$searchgraderprevresult = mysqli_query($conn,$searchgraderprevquery);
+$row = mysqli_fetch_array($searchgraderprevresult);
+if ($row != NULL){
+    $prevcourseid = $row['course_id'];
+    $prevsectionid = $row['section_id'];
+    $prevsemester = $row['semester'];
+    $prevyear = $row['year'];
     echo "<br>";
-    echo "deleted undergraduate grader $prevgradernamerow[name] and replacing them with $grader"; 
+    echo "the selected undergraduate student is already grading $prevcourseid $prevsectionid $prevsemester $prevyear";
+    echo "<br>";
+    echo "<form action = 'admin.php'>";
+    echo "<button type = 'submit'> Admin Homepage </button>";
+    echo "</form>";
+    echo "<br>";
+    echo "<form action = 'selectuggrader.php'>";
+    echo "<button type = 'submit'>  select a different grader </button>";
+    echo "</form>";
+    exit;
+} else {
+    $searchprevgraderquery = "SELECT * FROM undergraduategrader WHERE course_id = '$course' AND section_id = '$section' AND semester = '$semester' AND year = '$year'";
+    $searchprevgraderqueryresult = mysqli_query($conn,$searchprevgraderquery);
+    $prevgradertrue = 0;
+    while($row = mysqli_fetch_array($searchprevgraderqueryresult)){
+        $prevgraderid = $row['student_id'];
+        $getprevgradernamequery = "SELECT name FROM student WHERE student_id = $prevgraderid";
+        $getprevgradernamequeryresult = mysqli_query($conn,$getprevgradernamequery);
+        $prevgradernamerow = mysqli_fetch_array($getprevgradernamequeryresult);
+        $prevgradertrue = 1;
+    }
+  #  if ( $prevgradertrue == 1) {
+   #     $deleteprevgraderquery = "DELETE FROM undergraduategrader WHERE course_id = '$course' AND section_id = '$section' AND semester = #'$semester'AND year = '$year'";
+ #       mysqli_query($conn,$deleteprevgraderquery);
+  #      echo "<br>";
+   #     echo "deleted undergraduate grader $prevgradernamerow[name] and replacing them with $grader";  
+#}
+#$query = "INSERT INTO undergraduategrader VALUES('$graderid','$course','$section','$semester',$year)";
+#mysqli_query($conn,$query);
+
+$query = "Select distinct name, student.student_id from student, mastergrader where course_id = '$course' and section_id = '$section' and semester = '$semester' and year = '$year' and student.student_id = mastergrader.student_id";
+$result = $mysqli->query($query);
+if ($result->num_rows == 0)
+	$prevmastergrader = 0;
+else {
+	$prevmastergrader = 1;
+	$row = $result->fetch_assoc();
+	$prevgrader = $row['name'];
+}
+$query = "Select student.student_id from student, undergraduate where student.student_id = '$graderid' and student.student_id = undergraduate.student_id";
+$result = $mysqli->query($query);
+
+if ($result->num_rows == 0) {
+	if ($prevmastergrader == 1) {
+		$query = "UPDATE mastergrader SET student_id = $graderid WHERE course_id = '$course' AND section_id = '$section' AND semester = '$semester' AND year = '$year'";
+		mysqli_query($conn, $query);
+		echo "<br>";
+		echo "updated $course $section grader from $prevgrader to $grader";
+	} else if ($prevgradertrue == 1) {
+		$query = "Delete from undergradgrader where course_id = '$course' and section_id = '$section' and semester = '$semester' and year = '$year'";
+		mysqli_query($conn, $query);
+		$query = "INSERT INTO mastergrader VALUES('$graderid','$course','$section','$semester','$year')";
+		mysqli_query($conn, $query);
+		echo "updated $course $section grader from $prevgradernamerow[name] to $grader";
+	} else {
+		$query = "INSERT INTO mastergrader VALUES('$graderid','$course','$section','$semester','$year')";
+		mysqli_query($conn, $query);
+		echo "master grader $grader has been assigned to $course $section for $semester $year";
+	}
+} else {
+	if ($prevgradertrue == 1) {
+		$query = "UPDATE undergraduategrader SET student_id = $graderid WHERE course_id = '$course' AND section_id = '$section' AND semester = '$semester' AND year = '$year'";
+		mysqli_query($conn, $query);
+		echo "<br>";
+		echo "updated $course $section grader from $prevgradernamerow[name] to $grader";
+	} else if ($prevmastergrader == 1) {
+		$query = "Delete from mastergrader where course_id = '$course' and section_id = '$section' and semester = '$semester' and year = '$year'";
+		mysqli_query($conn, $query);
+		$query = "INSERT INTO undergraduategrader VALUES('$graderid','$course','$section','$semester','$year')";
+		mysqli_query($conn, $query);
+		echo "updated $course $section grader from $prevgrader to $grader";
+	} else {
+		$query = "INSERT INTO undergraduategrader VALUES('$graderid','$course','$section','$semester','$year')";
+		mysqli_query($conn, $query);
+		echo "undergraduate grader $grader has been assigned to $course $section for $semester $year";
+	}
 }
 
-$query = "INSERT INTO undergraduategrader VALUES('$graderid','$course','$section','$semester',$year)";
-mysqli_query($conn,$query);
-echo "<br>";
-echo "undergraduate grader $grader has been assigned to $course $section for $semester $year";
+
+
 echo "<br>";
 echo "<form action = 'admin.php'>";
 echo "<input type = 'hidden' name = 'email' value='admin@uml.edu'>";
 echo "<input type = 'hidden' name = 'password' value='123456'>";
 echo "<button type = 'submit'> Admin Homepage </button>";
 echo "</form>";
+}
 ?>

@@ -14,6 +14,7 @@
 		echo "<a href='$url'>Return to Login Menu</a><br>";
 		exit("Error: Invalid Credentials");
 	}
+
 ?>
 
 <!DOCTYPE HTML>

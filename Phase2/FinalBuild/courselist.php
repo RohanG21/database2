@@ -13,6 +13,7 @@
 		exit("Error: Invalid Credentials");
 	}
 ?>
+
 <?php 
 $month = date("m");
 $monthint = (int)$month;

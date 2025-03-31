@@ -18,8 +18,6 @@
 	$result = $mysqli->query($find_id);
 	$row = $result->fetch_assoc();
 	$ins_id = $row["instructor_id"];
-	//$current_semester = 'Spring';
-	//$current_year = 2025;
 ?>
 
 <!DOCTYPE html>
@@ -136,8 +134,8 @@
 					<th>Semester</th>
 					<th>Year</th>
 					<th>Student name</th>
-					</tr>";
 					//<th>Grade</th>
+					</tr>";
 		
 			while ($row = $result->fetch_assoc()) {
 				$course_id = $row['course_id'];

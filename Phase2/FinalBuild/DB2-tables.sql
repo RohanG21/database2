@@ -243,7 +243,6 @@ insert into account (email, password, type) values ('Johannes_Weis@uml.edu', '12
 insert into account (email, password, type) values ('Charles_Wilkes@uml.edu', '123456', 'instructor');
 INSERT INTO account (email, password, type) VALUES ('mattfensu@student.uml.edu', '123', 'student');
 
-
 insert into course (course_id, course_name, credits) values ('COMP1010', 'Computing I', 3);
 insert into course (course_id, course_name, credits) values ('COMP1020', 'Computing II', 3);
 insert into course (course_id, course_name, credits) values ('COMP2010', 'Computing III', 3);
@@ -298,7 +297,7 @@ insert into section (course_id, section_id, semester, year) value ('COMP2040', '
 
 insert into section values ('COMP1010', 'Section101', 'Spring', 2025, 1, 'DAN-305', 'TS1');
 insert into section (course_id, section_id, semester, year) value ('MATH1310', 'Section101', 'Spring', 2025);
-
+insert into section (course_id, section_id, semester, year) value ('MATH1310', 'Section101', 'Spring', 2024);
 
 INSERT INTO student VALUES(100,"Ben James","benjames@student.uml.edu",'Miner School of Computer & Information Sciences');
 INSERT INTO student VALUES(101,"Sylvia Camber", "sylviacamber@student.uml.edu","Chemistry");
@@ -350,6 +349,8 @@ INSERT INTO take values(117, 'MATH1310', 'Section101', 'Spring', 2025, 'A-');
 INSERT INTO take values(118, 'MATH1310', 'Section101', 'Spring', 2025, 'A');
 INSERT INTO take values(119, 'MATH1310', 'Section101', 'Spring', 2025, 'B');
 INSERT INTO take values(120, 'MATH1310', 'Section101', 'Spring', 2025, 'C+');
+INSERT INTO take values(121, 'MATH1310', 'Section101', 'Spring', 2024, 'A');
+INSERT INTO take values(111, 'MATH1310', 'Section101', 'Spring', 2024, 'A');
 
 INSERT INTO phd VALUES(106,'Pass',20230516,20250516);
 INSERT INTO phd VALUES(107,'Pass',20220925,20260312);
@@ -390,6 +391,8 @@ INSERT INTO undergraduate values(101,14,'Freshman');
 INSERT INTO undergraduate values(102,28,'Sophomore');
 INSERT INTO undergraduate values(103,28,'Freshman');
 INSERT INTO undergraduate values(104,28,'Sophomore');
+INSERT INTO undergraduate values(121,30,'Sophomore');
+INSERT INTO undergraduate values(116,0,'Freshman');
 
 INSERT INTO master values(111,123);
 INSERT INTO master values(112,150);

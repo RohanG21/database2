@@ -3,7 +3,7 @@
 	session_start();
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$email = $_POST["email"];
-		$password = $_POST["email"];
+		$password = $_POST["password"];
 		$_SESSION['email'] = $email;
 		$_SESSION['password'] = $password;
 
@@ -87,6 +87,9 @@
 	} else if ($is_admin == true) {
 	} else {}  // this line should never be reached on this page
 	
+	
+	$current_semester = "Spring";
+	$current_year = 2025;
 	$chosen_phd = "";
 	
 	// Following lines ensures neccesary info on the selected student persists between form usage

@@ -280,8 +280,8 @@
     echo "<br>";
 
     echo "<form action = 'admin.php' name = 'goback'>";
-	echo "<input type = 'hidden' name = 'email' value='<?php echo $email;?>'>";
-	echo "<input type = 'hidden' name = 'password' value='<?php echo $password;?>'>";
+	echo "<input type = 'hidden' name = 'email' value='admin@uml.edu'>";
+	echo "<input type = 'hidden' name = 'password' value='123456'>";
     echo "<button type = 'submit' name = 'goback'> Admin Homepage </button>";
     echo "</form>";
 
