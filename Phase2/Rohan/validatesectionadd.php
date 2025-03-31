@@ -17,7 +17,7 @@
 
     $conn = openConnection();
     echo "<br>";
-    mysqli_select_db($conn,"collegesystem");
+    mysqli_select_db($conn,"db2");
     $courseid = $_SESSION["course"];
     echo "<h2> Selected Course: $courseid </h2>";
     echo "<br>";
@@ -27,8 +27,8 @@
 
     if($row == NULL) {
         echo "no timeslot id found";
-        echo "<form action = 'index.php' name = 'goback'>";
-        echo "<button type = 'submit' name = 'goback'>";
+        echo "<form action = 'admin.php' name = 'goback'>";
+        echo "<button type = 'submit' name = 'goback'> Admin Homepage </button>";
         echo "</form>";
         exit;
     }
@@ -54,7 +54,7 @@
         echo "$row[course_id]";
         echo "<br>";
         echo "$row[section_id]";
-        echo "<form action = 'index.php' name = 'goback'>";
+        echo "<form action = 'admin.php' name = 'goback'>";
         echo "<button type = 'submit'> Admin Homepage </button>";
         exit;
     }
@@ -79,10 +79,9 @@
         echo "selected course: ";
         echo $row['course_id'];
         echo " ";
-        #echo $row['section_id'];
         echo "<br>";
-        echo "<form action = 'index.php' name = 'goback'>";
-        echo "<button type = 'submit'>  admin homepage </button>";
+        echo "<form action = 'admin.php' name = 'goback'>";
+        echo "<button type = 'submit'>  Admin Homepage </button>";
         echo "</form>";
         exit;
     }
@@ -90,8 +89,6 @@
    
     switch($timeslotid){
         case('TS4'):
-            #echo "TS4 case";
-            #echo "<br>";
             $conflicttslotquery = mysqli_query($conn,"SELECT course_id,section_id,classroom_id,time_slot_id,semester,year FROM section WHERE classroom_id = '$classroom' AND semester = '$semester' AND (year = '$year' AND (time_slot_id = 'TS1' OR time_slot_id = 'TS2'))");
             while($row = mysqli_fetch_array($conflicttslotquery)){
                 if ($row != NULL) {
@@ -105,8 +102,6 @@
             break;
                     
         case('TS5'):
-            #echo "TS5 case";
-            #cho "<br>";
             $conflictcoursequery = mysqli_query($conn,"SELECT course_id,section_id,classroom_id,time_slot_id,semester,year FROM section WHERE classroom_id = '$classroom' AND semester = '$semester' AND year = '$year' AND (time_slot_id = 'TS2' OR time_slot_id = 'TS3')");
             while($row = mysqli_fetch_array($conflictcoursequery)){
                 if ($row != NULL){
@@ -122,8 +117,6 @@
                 
 
         case('TS1'):
-           #echo "TS1 case";
-           #echo "<br>";
             $conflictcoursequery = mysqli_query($conn,"SELECT course_id,section_id,classroom_id,time_slot_id,semester,year FROM section WHERE semester = '$semester' AND year = '$year' AND classroom_id = '$classroom' AND time_slot_id = 'TS4'");
             while($row = mysqli_fetch_array($conflictcoursequery)){
                 if ($row != NULL){
@@ -140,8 +133,6 @@
 
 
             case('TS2'):
-                #echo "TS2 case";
-                #echo "<br>";
                 $conflictcoursequery = mysqli_query($conn,"SELECT course_id,section_id,classroom_id,semester,year,time_slot_id FROM section WHERE classroom_id = '$classroom' AND semester = '$semester' AND year = '$year' AND (time_slot_id = 'TS4' OR time_slot_id = 'TS5')");
                 while($row = mysqli_fetch_array($conflictcoursequery)){
                     if($row != NULL){
@@ -160,8 +151,6 @@
                 
 
             case('TS3'):
-                #echo "TS3 case";
-                #echo "<br>";
                 $conflictcoursequery = mysqli_query($conn,"SELECT course_id,section_id,classroom_id,time_slot_id,semester,year FROM section WHERE semester = '$semester' AND year = '$year' AND classroom_id = '$classroom' AND time_slot_id = 'TS5'");
                 while($row = mysqli_fetch_array($conflictcoursequery)){
                     if ($row != NULL){
@@ -256,7 +245,7 @@
 
     echo "<br>";
 
-    echo "<form action = 'index.php' name = 'goback'>";
+    echo "<form action = 'admin.php' name = 'goback'>";
     echo "<button type = 'submit' name = 'goback'> Admin Homepage </button>";
     echo "</form>";
 

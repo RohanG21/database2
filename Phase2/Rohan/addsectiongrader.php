@@ -1,7 +1,6 @@
 
 <?php 
 session_start()
-
 ?>
 
 <?php 
@@ -25,10 +24,10 @@ unset($_SESSION["selectgradersection"]);
 
 #echo "Today is " ,$monthint; 
 echo "<br>";
-echo "the current semester is ",$semester;
-echo "year: $year";
+echo "current semester: $semester $year";
+
 $db_connection = mysqli_connect("localhost","root","");
-mysqli_select_db($db_connection,"collegesystem");
+mysqli_select_db($db_connection,"db2");
 
 $query = mysqli_query($db_connection,"SELECT * FROM course");
 $courserowtrue = 0;
@@ -56,7 +55,7 @@ if ($courserowtrue == 0){
 }
 
 
-echo "<form action = 'index.php'>";
+echo "<form action = 'admin.php'>";
 echo "<button type = 'submit'> Admin Homepage </button>";
 echo "</form>";
 exit;

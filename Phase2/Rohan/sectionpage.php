@@ -1,13 +1,15 @@
 <?php 
 session_start();
-$_SESSION["course"] = $_GET['course'];
+if (!isset($_SESSION["course"])){
+    $_SESSION["course"] = $_GET['course'];
+}
 ?>
+
 <?php
 include "adminfunctions.php";
 include "conFunc.php";
 
-$courseid = $_GET['course'];
-$_SESSION["course"] = $courseid;
+$courseid = $_SESSION["course"];
 
 $semester = getCurSemester();
 $semesterstr = '';
@@ -24,11 +26,8 @@ $year = getCurYear();
 $_SESSION['year'] = $year;
 $_SESSION['semester'] = $semesterstr;
 
-#echo "semester: ,$semesterstr";
-#echo "year: ",$year;
-
 $db_connection = mysqli_connect("localhost","root","");
-mysqli_select_db($db_connection,"collegesystem");
+mysqli_select_db($db_connection,"db2");
 echo "<h2> Selected Course: $courseid </h2>";
 echo "<br>";
 
@@ -59,4 +58,17 @@ echo "</table>";
     <form action = 'addsection.php'>
     <button type = 'submit' > add section </button>
     </form>
+
+    <form action = 'sectionpage.php'>
+        <button type = 'submit'> section page</button>
+    </form>
+
+    <form action = 'courselist.php'>
+        <button type = 'submit'> course page </button>
+    </form>
+
+    <form action = 'admin.php'>
+        <button type = 'submit'> Admin Homepage </button>";
+    </form>
+
 </html>

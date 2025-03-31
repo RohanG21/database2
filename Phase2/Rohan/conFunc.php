@@ -1,15 +1,11 @@
 <?php
 function openConnection(){
     $serverName = "localhost";
-    $connectionOptions = array("Database"=>"collegesystem");
+    $connectionOptions = array("Database"=>"db2");
     $conn = mysqli_connect($serverName,"root","");
     if ($conn == false) {
-        echo "connection failed";
+        session_destroy();
     }
-    
-    else {
-        echo "connection succeeded";
         return $conn;
-    }
 }
 ?>
