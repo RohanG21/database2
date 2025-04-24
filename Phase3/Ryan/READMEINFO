@@ -1,0 +1,8 @@
+-To get the code to work, put the Phase3 file in htdocs, and change the url in strings to your ip.
+-If a class needs to be displayed, add the line "setContentView(R.layout.studentmain);" in the onCreate function,
+where the layout is a .xml file to format the buttons (Like HTML). To modify the .xml, click on the .xml file and
+press (ALT+SHIFT+LEFT KEY) to split the screen to see the code.
+-If you are creating  new query, I would just suggest copying another java file then just switching the variable names
+and adding/removing paramaters from your java file and you request java file.
+-Every time you want to display a class with a .xml file (everything but request files), make sure to add it as an
+activity in the AndroidManifest.xml file in the manifest folder.
