@@ -1,0 +1,20 @@
+<resources>
+    <!-- General strings -->
+    <string name="url">http://10.248.59.127/Phase3/</string>
+    <string name="app_name">db2</string>
+    <!-- Login Page -->
+    <string name="create_an_account">Create an Account</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="content_description">TODO</string>
+
+    <!-- Create Account Page -->
+    <string name="name">Enter First and Last Name</string>
+    <string name="student_id">Enter Student ID</string>
+    <string name="create_account">Create Account</string>
+    <string name="return_to_login">Return To Login</string>
+
+    <!-- Create Account Valid Page -->
+    <string name="account_was_successfully_created">Account Was Successfully Created</string>
+</resources>
