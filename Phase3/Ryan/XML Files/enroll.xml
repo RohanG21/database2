@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="16dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".Enroll">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:text="Available Courses"/>
+
+        <ListView
+            android:id="@+id/courseList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
+        <Button
+            android:id="@+id/enroll_btn"
+            android:backgroundTint="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enroll"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Return To Student Main"
+            android:textSize="18sp"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
+            android:id="@+id/student_main_btn"
+            android:layout_marginTop="16dp"/>
+    </LinearLayout>
+</RelativeLayout>
