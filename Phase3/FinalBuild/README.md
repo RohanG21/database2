@@ -34,7 +34,7 @@ Note: this project was tested using Android Studio Meerkat | 2024.3.1 Patch 1
     3. Place all PHP & SQL files in the web server directory 
 		(e.g., in XAMPP's htdocs folder, htdocs/Phase3).
     4. Update database credentials in config.php (if needed).
-	5. Put all other downloaded files in a folder named db2, and open Android Studio.
+	5. Put all other downloaded files in a folder named db2, and install and open Android Studio.
 		Press the open button, and select the db2 folder.
 	6. Start the Apache & MySQL servers (e.g., from XAMPP).
 	7. In the strings.xml file, enter the IP address found within XAMPP's 
